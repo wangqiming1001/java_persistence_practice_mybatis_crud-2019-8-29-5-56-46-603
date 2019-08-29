@@ -1,5 +1,5 @@
 CREATE TABLE employee (
-  id INTEGER PRIMARY KEY,
+  id varchar(64) PRIMARY KEY,
   name VARCHAR(64) NOT NULL,
   age   int(4) NOT NULL
 );
