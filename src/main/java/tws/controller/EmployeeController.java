@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import tws.dto.EmployeeDto;
 import tws.entity.Employee;
 import tws.repository.EmployeeMapper;
+import tws.service.EmployeeService;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +28,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+    @Autowired
+    private EmployeeService EmployeeService;
 
     //fetch employee list
     @GetMapping("")
@@ -47,6 +52,14 @@ public class EmployeeController {
     	return ResponseEntity.ok(employeeMapper.fetchEmployeeById(id));
     }
     
+  //fetch one employee
+    @GetMapping("/{id}")
+    public ResponseEntity<List<EmployeeDto>> fetchEmployeeDtoById(@PathVariable String id) {
+    	List<EmployeeDto>  employeeDtoList = EmployeeService.fetchEmployeeDtoById(id);
+    	return ResponseEntity.ok(employeeDtoList);
+    }
+    
+    
     //update a specific employee
     @PutMapping
     public ResponseEntity<List<Employee>> updateEmployeeById(@RequestBody Employee employee) {
@@ -63,5 +76,7 @@ public class EmployeeController {
   		List<Employee> employeeList= employeeMapper.selectAll();
     	return ResponseEntity.ok(employeeList);
   	}
+  	
+  	
     
 }

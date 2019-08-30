@@ -30,4 +30,13 @@
     	where
     	id = #{id}
     </delete>
+    
+    <select id="selectByName">
+    	select * from employee
+ 		<where>
+    		<if test="name != null and name != ''">
+        		and name like CONCAT('%', #{name}, '%')
+   		 	</if>
+    	</where>
+    </select>
 </mapper>

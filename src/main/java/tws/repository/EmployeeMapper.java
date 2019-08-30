@@ -18,4 +18,6 @@ public interface EmployeeMapper {
     void updateEmployeeById(@Param(value = "employee") Employee employee);
 
 	void deleteEmployeeById(@Param(value = "id") String id);
+
+	List<Employee> selectByName(@Param(value = "name") String name);
 }
