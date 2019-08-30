@@ -31,12 +31,26 @@
     	id = #{id}
     </delete>
     
-    <select id="selectByName">
+    <select id="selectByName" resultType="tws.entity.Employee">
     	select * from employee
  		<where>
     		<if test="name != null and name != ''">
-        		and name like CONCAT('%', #{name}, '%')
+        		and name like '%${name}%'
    		 	</if>
     	</where>
     </select>
+    
+    <!--   select *
+        FROM user
+		ORDER BY first_name
+		OFFSET 5 ROWS FETCH NEXT 10 ROWS ONLY; -->
+    <select id="selectAllEmployees" resultType="tws.entity.Employee">
+        select * from   employee  order by id desc
+        <if test="offSet !=null and pageSize!=null">
+            limit #{offSet},#{pageSize}
+        </if>
+    </select>
+    
+    
+    
 </mapper>

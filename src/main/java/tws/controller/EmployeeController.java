@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tws.dto.EmployeeDto;
@@ -33,8 +34,8 @@ public class EmployeeController {
 
     //fetch employee list
     @GetMapping("")
-    public ResponseEntity<List<Employee>> getAll() {
-        return ResponseEntity.ok(employeeMapper.selectAll());
+    public ResponseEntity<List<Employee>> getAll(@RequestParam(value="page",required=false) Integer page,@RequestParam(value="pageSize",required=false) Integer pageSize) {
+    	return ResponseEntity.ok(EmployeeService.selcectAllEmployee(page,pageSize));
     }
     
     //create a new employee
@@ -53,7 +54,7 @@ public class EmployeeController {
     }
     
   //fetch one employee
-    @GetMapping("/{id}")
+    @GetMapping("/dto/{id}")
     public ResponseEntity<List<EmployeeDto>> fetchEmployeeDtoById(@PathVariable String id) {
     	List<EmployeeDto>  employeeDtoList = EmployeeService.fetchEmployeeDtoById(id);
     	return ResponseEntity.ok(employeeDtoList);
@@ -77,6 +78,12 @@ public class EmployeeController {
     	return ResponseEntity.ok(employeeList);
   	}
   	
+  	
+  	//selectByName
+  	 @GetMapping("/name")
+     public ResponseEntity<List<Employee>> selectByName(@RequestParam(required=false) String name) {
+     	return ResponseEntity.ok(employeeMapper.selectByName(name));
+     }
   	
     
 }

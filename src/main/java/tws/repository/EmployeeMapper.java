@@ -11,6 +11,8 @@ import java.util.List;
 public interface EmployeeMapper {
     List<Employee> selectAll();
     
+    List<Employee> selectAllEmployees(@Param(value = "offSet") Integer offSet,@Param(value = "pageSize") Integer pageSize);
+    
     void insertEmployee(@Param(value = "employee") Employee employee);
 
     List<Employee> fetchEmployeeById(@Param(value = "id") String id);

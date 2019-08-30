@@ -19,7 +19,17 @@ public class EmployeeService {
 	private EmployeeMapper employeeMapper;
 	
 	
-	  public List<EmployeeDto> fetchEmployeeDtoById(String id) {
+	
+	public List<Employee> selcectAllEmployee(Integer page,Integer pageSize){
+		if (page != null && pageSize != null) {
+			int offSet = (page-1) * pageSize;
+			return employeeMapper.selectAllEmployees(offSet, pageSize);
+		}
+		return employeeMapper.selectAll();
+	}
+	
+	
+	public List<EmployeeDto> fetchEmployeeDtoById(String id) {
 	    	List<Employee> EmployeeList = employeeMapper.fetchEmployeeById(id);
 	    	EmployeeDto employeeDto = new EmployeeDto();
 	    	employeeDto.setId(id);
@@ -30,4 +40,11 @@ public class EmployeeService {
 	    	employeeDtoList.add(employeeDto);
 	    	return employeeDtoList;
 	  }
+	
+	//selectByName
+	public List<Employee> selectByName(String name) {
+    	List<Employee> employeeList = employeeMapper.selectByName(name);
+    	return employeeList;
+  }
+	
 }
